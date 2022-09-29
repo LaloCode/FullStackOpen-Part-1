@@ -36,12 +36,27 @@ const App = () => {
     setPoints(pointsCopy)
   }
 
+  const getMaxPointsIndex = () => {
+    let maxIndex = 0
+    for (let i = 0; i < points.length; ++i) {
+      if (points[i] > points[maxIndex]) {
+        maxIndex = i
+      }
+    }
+
+    return maxIndex
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <div>{anecdotes[selected]}</div>
       <div>has {points[selected]} votes</div>
       <Button text='vote' onClick={increasePoints}/>
       <Button text='next anecdote' onClick={getRandomAnecdote}/>
+      <h1>Anecdote with most votes</h1>
+      <div>{anecdotes[getMaxPointsIndex()]}</div>
+      <div>has {points[getMaxPointsIndex()]} votes</div>
     </div>
   )
 }
