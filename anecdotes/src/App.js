@@ -14,22 +14,33 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  const [points, setPoints] = useState(Array(7).fill(0))
 
   const getRandomInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
 
   const getRandomAnecdote = () => {
-    let newAnecdoteIndex = getRandomInteger(0, 6)
+    let newAnecdoteIndex = getRandomInteger(0, 7)
     while (newAnecdoteIndex === selected) {
-      newAnecdoteIndex = getRandomInteger(0, 6)
+      newAnecdoteIndex = getRandomInteger(0, 7)
     }
     setSelected(newAnecdoteIndex)
+  }
+
+  const increasePoints = () => {
+    const pointsCopy = [...points]
+
+    pointsCopy[selected] += 1
+
+    setPoints(pointsCopy)
   }
 
   return (
     <div>
       <div>{anecdotes[selected]}</div>
+      <div>has {points[selected]} votes</div>
+      <Button text='vote' onClick={increasePoints}/>
       <Button text='next anecdote' onClick={getRandomAnecdote}/>
     </div>
   )
